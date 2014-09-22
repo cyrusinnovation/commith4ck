@@ -11,6 +11,7 @@ notifications:
     secure: "Z+lgogCCwdjb6CpgMFmJCmjhCp6Fg3Mnw/lC8qQO+PeodPsjmbov7S2eVzRhI4xFTfYLvCW4QfOg+fVWFIGrLglt4Efwj+EsDkSaIdG/vY6CogXtEASN0KVpE6b6ykWhAoP7h8RNFXMFu8DXyys6S5alF/1JwzUZMXO0OFK0g/g="
 deploy:
   provider: heroku
+  strategy: git
   api_key:
     secure: "Gfa4/2tdtn67c/yLq7qAJzWS+9Mfxpko/AxZV+WwaHqyl/urTAf32BIk+ME9A4kxdRuc8A4FRTppN+hv3NsgOkyqtFCYuJ9cQbrV1gqk2Yz2+PZTp0qDDNG5mDPVl89umcGw0CLK2d5jUfrq1/+szDyE+tHiNrr9iCT6GT/ayxY="
   app: commith4ck
