@@ -2,3 +2,6 @@ language: scala
 scala:
    - 2.11.2
 script: sbt test
+notifications:
+  slack:
+    secure: "Z+lgogCCwdjb6CpgMFmJCmjhCp6Fg3Mnw/lC8qQO+PeodPsjmbov7S2eVzRhI4xFTfYLvCW4QfOg+fVWFIGrLglt4Efwj+EsDkSaIdG/vY6CogXtEASN0KVpE6b6ykWhAoP7h8RNFXMFu8DXyys6S5alF/1JwzUZMXO0OFK0g/g="
