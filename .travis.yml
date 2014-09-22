@@ -3,6 +3,8 @@ scala:
    - 2.11.2
 jdk:
   - oraclejdk8
+env:
+  - root-level=ERROR
 script: sbt test
 notifications:
   slack:
