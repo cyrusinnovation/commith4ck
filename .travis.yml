@@ -12,3 +12,4 @@ deploy:
   api_key:
     secure: "Gfa4/2tdtn67c/yLq7qAJzWS+9Mfxpko/AxZV+WwaHqyl/urTAf32BIk+ME9A4kxdRuc8A4FRTppN+hv3NsgOkyqtFCYuJ9cQbrV1gqk2Yz2+PZTp0qDDNG5mDPVl89umcGw0CLK2d5jUfrq1/+szDyE+tHiNrr9iCT6GT/ayxY="
   app: commith4ck
+  skip_cleanup: true
