@@ -8,8 +8,6 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala).enablePlugins(Sb
 
 scalaVersion := "2.11.2"
 
-herokuAppName in Compile := "commith4ck"
-
 pipelineStages := Seq(rjs)
 
 //requireNativePath := Some("public/javascripts/node_modules/.bin/bower-requirejs")
