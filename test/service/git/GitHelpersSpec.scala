@@ -1,9 +1,11 @@
+package service.git
+
 import java.io.File
 
+import SGit.{CommitRange, GitHelpers}
 import org.junit.runner.RunWith
-import org.specs2.mutable._
+import org.specs2.mutable.Specification
 import org.specs2.runner.JUnitRunner
-import service.git.{CommitRange, GitHelpers}
 
 @RunWith(classOf[JUnitRunner])
 class GitHelpersSpec extends Specification with GitHelpers {
@@ -14,7 +16,7 @@ class GitHelpersSpec extends Specification with GitHelpers {
 
   "Git helpers" should {
     "be able to get all of commits after a given hash" in {
-      val allCommits = readCommitsSince(projectRepoRoot, CommitRange.All)
+      val allCommits = readCommitsSince(projectRepoRoot, CommitRange())
       val allCommitsAfterFirstCommit = readCommitsSince(projectRepoRoot, CommitRange(firstCommit))
 
       (allCommits.length - 1) should beEqualTo(allCommitsAfterFirstCommit.length)
@@ -24,8 +26,8 @@ class GitHelpersSpec extends Specification with GitHelpers {
       val allCommitsFromClone = withTempRepositoryClone(projectGithubUrl, git => {
         readCommitsSince(git, CommitRange(firstCommit, fifthProjectCommit))
       })
-
       val allCommitsFromLocal = readCommitsSince(projectRepoRoot, CommitRange(firstCommit, fifthProjectCommit))
+
       allCommitsFromLocal.size should equalTo(allCommitsFromClone.size)
     }
   }

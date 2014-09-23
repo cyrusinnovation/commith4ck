@@ -1,4 +1,4 @@
-package service.git
+package SGit
 
 import java.io.File
 
@@ -15,13 +15,13 @@ import scala.collection.JavaConverters._
 trait GitHelpers {
   private val log = LoggerFactory.getLogger(classOf[GitHelpers])
 
-  def readCommitsSince(repo: String, range: CommitRange) = {
+  def readCommitsSince(repo: String, range: CommitRange): List[RevCommit] = {
     withRepository(repo, git => {
       readGitCommits(git, range)
     })
   }
 
-  def readCommitsSince(git: Git, range: CommitRange) = {
+  def readCommitsSince(git: Git, range: CommitRange): List[RevCommit] = {
     withGit(git, git => {
       readGitCommits(git, range)
     })
@@ -56,13 +56,12 @@ trait GitHelpers {
     }
   }
 
-  private def readGitCommits(git: Git, commitRange: CommitRange): List[RevCommit] = {
+  private def readGitCommits(git: Git, commitRange: CommitRange) = {
     log.info(s"Reading commits from branch ${git.getRepository.getBranch} from hash range '$commitRange'")
-
     (commitRange match {
-      case CommitRange.All => git.log().all()
-      case CommitRange(start, None) => git.log.addRange(ObjectId.fromString(start), git.getRepository.resolve("HEAD"))
-      case CommitRange(start, Some(end)) => git.log.addRange(ObjectId.fromString(start), ObjectId.fromString(end))
+      case RangeOfCommits(start, end) => git.log.addRange(ObjectId.fromString(start), ObjectId.fromString(end))
+      case AllCommitsAfter(start) => git.log.addRange(ObjectId.fromString(start), git.getRepository.resolve("HEAD"))
+      case AllCommits() => git.log().all()
     }).call()
       .asScala
       .toList
@@ -84,11 +83,4 @@ trait GitHelpers {
     tempDir
   }
 
-}
-
-case class CommitRange(start: String, end: Option[String])
-object CommitRange {
-  def apply(start: String): CommitRange = CommitRange(start, None)
-  def apply(start: String, end: String): CommitRange = CommitRange(start, Option(end))
-  val All = new CommitRange(null, None)
 }
