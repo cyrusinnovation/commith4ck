@@ -1,11 +1,10 @@
-package SGit
+package sgit
 
 import java.io.File
 
 import org.apache.commons.io.FileUtils
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.lib.{ObjectId, Repository}
-import org.eclipse.jgit.revwalk.RevCommit
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder
 import org.slf4j.LoggerFactory
 import resource._
@@ -15,13 +14,13 @@ import scala.collection.JavaConverters._
 trait GitHelpers {
   private val log = LoggerFactory.getLogger(classOf[GitHelpers])
 
-  def readCommitRange(repo: String, range: CommitRange): List[RevCommit] = {
+  def readCommitRange(repo: String, range: CommitRange): List[Commit] = {
     withRepository(repo, git => {
       readGitCommits(git, range)
     })
   }
 
-  def readCommitRange(git: Git, range: CommitRange): List[RevCommit] = {
+  def readCommitRange(git: Git, range: CommitRange): List[Commit] = {
     withGit(git, git => {
       readGitCommits(git, range)
     })
@@ -65,7 +64,8 @@ trait GitHelpers {
     }).call()
       .asScala
       .toList
-      .sortBy(_.getCommitTime)
+      .map(Commit.apply)
+      .sortBy(_.commitTime)
   }
 
   private def createRepository(repo: String): Repository = {

@@ -2,7 +2,7 @@ package service.git
 
 import java.io.File
 
-import SGit.{CommitRange, GitHelpers}
+import sgit.{CommitRange, GitHelpers}
 import org.junit.runner.RunWith
 import org.specs2.mutable.Specification
 import org.specs2.runner.JUnitRunner

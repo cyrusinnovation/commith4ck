@@ -1,4 +1,4 @@
-package SGit
+package sgit
 
 sealed abstract class CommitRange
 
