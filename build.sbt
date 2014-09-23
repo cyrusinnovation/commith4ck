@@ -10,6 +10,8 @@ scalaVersion := "2.11.2"
 
 herokuAppName in Compile := "commith4ck"
 
+herokuJdkVersion in Compile := "1.8"
+
 pipelineStages := Seq(rjs)
 
 //requireNativePath := Some("public/javascripts/node_modules/.bin/bower-requirejs")
