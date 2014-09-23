@@ -15,13 +15,13 @@ import scala.collection.JavaConverters._
 trait GitHelpers {
   private val log = LoggerFactory.getLogger(classOf[GitHelpers])
 
-  def readCommitsSince(repo: String, range: CommitRange): List[RevCommit] = {
+  def readCommitRange(repo: String, range: CommitRange): List[RevCommit] = {
     withRepository(repo, git => {
       readGitCommits(git, range)
     })
   }
 
-  def readCommitsSince(git: Git, range: CommitRange): List[RevCommit] = {
+  def readCommitRange(git: Git, range: CommitRange): List[RevCommit] = {
     withGit(git, git => {
       readGitCommits(git, range)
     })

@@ -16,19 +16,20 @@ class GitHelpersSpec extends Specification with GitHelpers {
 
   "Git helpers" should {
     "be able to get all of commits after a given hash" in {
-      val allCommits = readCommitsSince(projectRepoRoot, CommitRange())
-      val allCommitsAfterFirstCommit = readCommitsSince(projectRepoRoot, CommitRange(firstCommit))
+      val allCommits = readCommitRange(projectRepoRoot, CommitRange())
+      val allCommitsAfterFirstCommit = readCommitRange(projectRepoRoot, CommitRange(firstCommit))
 
       (allCommits.length - 1) should beEqualTo(allCommitsAfterFirstCommit.length)
     }
 
     "be able to clone a remote repository" in {
+      val fromFirstToFifthCommit = CommitRange(firstCommit, fifthProjectCommit)
       val allCommitsFromClone = withTempRepositoryClone(projectGithubUrl, git => {
-        readCommitsSince(git, CommitRange(firstCommit, fifthProjectCommit))
+        readCommitRange(git, fromFirstToFifthCommit)
       })
-      val allCommitsFromLocal = readCommitsSince(projectRepoRoot, CommitRange(firstCommit, fifthProjectCommit))
+      val allCommitsFromLocal = readCommitRange(projectRepoRoot, fromFirstToFifthCommit)
 
-      allCommitsFromLocal.size should equalTo(allCommitsFromClone.size)
+      allCommitsFromLocal.size should beEqualTo(allCommitsFromClone.size)
     }
   }
 }
