@@ -32,7 +32,7 @@ abstract class EsSpecBase extends Specification {
   }
   private def buildJestFactory() = {
     val jf = new JestClientFactory()
-    jf.setHttpClientConfig(new HttpClientConfig.Builder("http://localhost:9200").build())
+    jf.setHttpClientConfig(new HttpClientConfig.Builder("http://localhost:9200").multiThreaded(true).build())
     jf
   }
 }
