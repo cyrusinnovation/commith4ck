@@ -1,0 +1,6 @@
+{
+    "directory": "/public/javascripts/lib",
+    "scripts": {
+        "postinstall": "node_modules/.bin/bower-requirejs.cmd -c public/javascripts/main.js"
+    }
+}

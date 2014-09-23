@@ -16,6 +16,7 @@ class EsWriterSpec extends EsSpecBase with CommitWriter {
     "should be able to connect to Elasticsearch" in {
       val commits = List(new Commit(hash("Commit 1"), 1), new Commit(hash("Commit 2"), 2))
       val result = executeAction(client, bulkInsertActionForCommits(commits))
+
       result.isSucceeded must beTrue
     }
   }

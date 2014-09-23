@@ -1,10 +1,17 @@
+//import play.PlayImport.PlayKeys._
+
 name := """commith4ck"""
 
 version := "1.0-SNAPSHOT"
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
+lazy val root = (project in file(".")).enablePlugins(PlayScala).enablePlugins(SbtWeb)
 
 scalaVersion := "2.11.2"
+
+pipelineStages := Seq(rjs)
+
+//requireNativePath := Some("public/javascripts/node_modules/.bin/bower-requirejs")
+
 
 libraryDependencies ++= Seq(
   "org.eclipse.jgit" % "org.eclipse.jgit" % "3.5.0.201409071800-rc1",
