@@ -1,3 +1,7 @@
+before_script:
+  - curl -sL https://deb.nodesource.com/setup | sudo bash -
+  - sudo apt-get install -y nodejs
+  - npm install
 language: scala
 scala:
    - 2.11.2
