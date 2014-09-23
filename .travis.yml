@@ -10,6 +10,7 @@ jdk:
 env:
   global:
     - rootlevel=ERROR
+    - SBT_OPTS=-Dsbt.jse.engineType=Node
     - secure: "36BrkDBIMLreN1HpntYClfDAblMG5gGjApO1CyEE/eOKPBErK70lPvBpX5CLwtPYSjTgHeoXzHmJ47eH3ke6FEpgsf1wcNrEVYtPWcJBHZRj/MrKR/fBNx5aCLq8F1IiRbghd/k1kRPScXv22LulrIzJREtpLOO+eUyTRus3n1o="
 script: sbt stage
 after_success: sbt deployHeroku
