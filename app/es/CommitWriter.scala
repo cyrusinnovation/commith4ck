@@ -13,7 +13,7 @@ trait CommitWriter {
   }
 
   def indexAction(commit: Commit): Index = {
-    new Index.Builder(commit).id(commit.id).index("commits").`type`("commit").build()
+    new Index.Builder(commit).id(commit.id).index("commits").`type`("commit").refresh(true).build()
   }
 
   def executeAction[T <: JestResult](client: JestClient, action: Action[T]): T = {
