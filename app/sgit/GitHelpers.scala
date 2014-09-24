@@ -2,12 +2,12 @@ package sgit
 
 import java.io.File
 
-import org.apache.commons.io.FileUtils
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.lib.{ObjectId, Repository}
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder
 import org.slf4j.LoggerFactory
 import resource._
+import util.TempIoHelper
 
 import scala.collection.JavaConverters._
 
@@ -34,15 +34,14 @@ trait GitHelpers {
     }
   }
 
-  private def withGit[T](git: Git, whatToDo: Git => T): T = {
+  def withGit[T](git: Git, whatToDo: Git => T): T = {
     managed(git).acquireAndGet { git =>
       whatToDo(git)
     }
   }
 
   def withTempRepositoryClone[T](remote: String, whatToDo: Git => T): T = {
-    val tempDir = createTempDirectory()
-    try {
+    TempIoHelper.withTempDirectory { tempDir =>
       val g = Git.cloneRepository()
         .setDirectory(tempDir)
         .setURI(remote)
@@ -50,15 +49,13 @@ trait GitHelpers {
       withGit(g, { git =>
         whatToDo(git)
       })
-    } finally {
-      FileUtils.deleteDirectory(tempDir)
     }
   }
 
   private def readGitCommits(git: Git, commitRange: CommitRange) = {
     log.info(s"Reading commits from branch ${git.getRepository.getBranch} from hash range '$commitRange'")
     (commitRange match {
-      case RangeOfCommits(start, end) => git.log.addRange(ObjectId.fromString(start), ObjectId.fromString(end))
+      case RangeOfCommitsAfter(start, end) => git.log.addRange(ObjectId.fromString(start), ObjectId.fromString(end))
       case AllCommitsAfter(start) => git.log.addRange(ObjectId.fromString(start), git.getRepository.resolve("HEAD"))
       case AllCommits() => git.log().all()
     }).call()
@@ -75,12 +72,4 @@ trait GitHelpers {
       .findGitDir() // scan up the file system tree
       .build()
   }
-
-  private def createTempDirectory() = {
-    val tempDir = File.createTempFile("commith4ck", "tmp")
-    tempDir.delete()
-    tempDir.mkdir()
-    tempDir
-  }
-
 }
