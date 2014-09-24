@@ -21,6 +21,7 @@ requireNativePath := Some("node_modules/bin/r.js")
 buildProfile := JS.Object("skipDirOptimize" -> true)
 
 libraryDependencies ++= Seq(
+  filters,
   "org.eclipse.jgit" % "org.eclipse.jgit" % "3.5.0.201409071800-rc1",
   "commons-io" % "commons-io" % "2.4",
   "com.jsuereth" %% "scala-arm" % "1.4",
