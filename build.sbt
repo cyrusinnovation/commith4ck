@@ -1,4 +1,6 @@
-//import play.PlayImport.PlayKeys._
+import play.PlayImport.PlayKeys._
+import WebJs._
+import RjsKeys._
 
 name := """commith4ck"""
 
@@ -14,8 +16,9 @@ herokuJdkVersion in Compile := "1.8"
 
 pipelineStages := Seq(rjs)
 
-//requireNativePath := Some("public/javascripts/node_modules/.bin/bower-requirejs")
+requireNativePath := Some("node_modules/bin/r.js")
 
+buildProfile := JS.Object("skipDirOptimize" -> true)
 
 libraryDependencies ++= Seq(
   "org.eclipse.jgit" % "org.eclipse.jgit" % "3.5.0.201409071800-rc1",
