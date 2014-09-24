@@ -1,7 +1,7 @@
 require.config({
     baseUrl: "/assets/javascripts/",
     paths: {
-        lodash: "lib/lodash/dist/lodash.compat",
+        lodash: "lib/lodash/dist/lodash",
         requirejs: "lib/requirejs/require",
         jquery: "lib/jquery/dist/jquery"
     },
