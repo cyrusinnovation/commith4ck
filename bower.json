@@ -21,7 +21,9 @@
   "dependencies": {
     "lodash": "2.4.1",
     "requirejs": "2.1.15",
-    "jquery": "2.1.1"
+    "jquery": "2.1.1",
+    "knockoutjs": "3.2.0",
+    "requirejs-text": "2.0.12"
   },
   "overrides": {
     "lodash": {

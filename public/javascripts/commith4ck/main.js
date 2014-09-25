@@ -2,9 +2,9 @@ define(function (require) {
     "use strict";
 
     var $ = require("jquery");
-    var foo = require("./foo");
+    var commitBrowser = require("./CommitBrowser");
 
     $(function () {
-        foo.initialize($('body'));
+        commitBrowser.initialize($('body'));
     });
 });

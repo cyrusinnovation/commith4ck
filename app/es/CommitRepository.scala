@@ -2,6 +2,7 @@ package es
 
 import io.searchbox.action.Action
 import io.searchbox.client.{JestClient, JestResult}
+import io.searchbox.core.search.sort.Sort
 import io.searchbox.core.{Bulk, Index, Search}
 import org.slf4j.Logger
 import play.api.libs.json._
@@ -22,6 +23,7 @@ trait CommitRepository {
     val query = new Search.Builder(matchAll)
       .addIndex("commits")
       .addType("commit")
+      .addSort(new Sort("commitTime", Sort.Sorting.DESC))
       .setParameter("from", page.from)
       .setParameter("size", page.size)
       .build()
