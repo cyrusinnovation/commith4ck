@@ -2,8 +2,6 @@ package es
 
 import java.io.File
 
-import io.searchbox.client.JestClientFactory
-import io.searchbox.client.config.HttpClientConfig
 import io.searchbox.indices.{DeleteIndex, Refresh}
 import org.apache.commons.io.FileUtils
 import org.elasticsearch.common.settings.ImmutableSettings
@@ -15,7 +13,7 @@ import org.specs2.specification.{Fragments, Step}
 abstract class EsSpecBase extends Specification with After {
   protected val log = LoggerFactory.getLogger(this.getClass.getName)
   private val esNode = buildEsNode()
-  private val jestClient = buildJestFactory().getObject
+  private val jestClient = EsClientProvider.buildJestClient("http://localhost:9200")
   protected val client = new ESClient(jestClient)
 
   override def map(fs: =>Fragments) = fs ^ Step(destroyEsNode())
@@ -40,11 +38,5 @@ abstract class EsSpecBase extends Specification with After {
     esNode.close()
     log.info("Stopped Elasticsearch node")
     FileUtils.deleteDirectory(new File("data"))
-  }
-
-  private def buildJestFactory() = {
-    val jf = new JestClientFactory()
-    jf.setHttpClientConfig(new HttpClientConfig.Builder("http://localhost:9200").multiThreaded(true).build())
-    jf
   }
 }

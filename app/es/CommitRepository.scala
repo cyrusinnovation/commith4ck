@@ -7,7 +7,7 @@ import org.slf4j.Logger
 import play.api.libs.json._
 import sgit.Commit
 
-trait CommitWriter {
+trait CommitRepository {
   protected val log: Logger
   def client: JestClient
 
@@ -16,6 +16,7 @@ trait CommitWriter {
       builder.addAction(indexAction(commit))
     }).build()
   }
+  
   def getCommits(page: QueryPage): List[Commit] = {
     val matchAll = """{ query: { "match_all" : { } } }"""
     val query = new Search.Builder(matchAll)
@@ -39,7 +40,7 @@ trait CommitWriter {
 
   private def throwIfFail[T <: JestResult](result: T): T = {
     if (!result.isSucceeded) {
-      throw new RuntimeException("Jest action execution failed")
+      throw new RuntimeException(s"Jest action execution failed. Error: ${result.getErrorMessage}")
     }
     result
   }
