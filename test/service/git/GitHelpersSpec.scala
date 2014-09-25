@@ -86,7 +86,7 @@ class GitHelpersSpec extends Specification with GitHelpers {
     val commitMessage = s"Committing: '${targetFile.getName}' with contents: '$fileContents'"
     io.FileUtils.write(targetFile, fileContents)
     git.add().addFilepattern(targetFile.getName).call()
-    Commit(git.commit().setMessage(commitMessage).call())
+    Commit.fromCommit(git.commit().setMessage(commitMessage).call())
   }
 
   private def createTestCommits(fileAndContents: Map[String, String], repositoryDirectory: File, git: Git): List[Commit] = {

@@ -61,7 +61,7 @@ trait GitHelpers {
     }).call()
       .asScala
       .toList
-      .map(Commit.apply)
+      .map(Commit.fromCommit)
       .sortBy(_.commitTime)
   }
 
