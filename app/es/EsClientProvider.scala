@@ -2,6 +2,7 @@ package es
 
 import io.searchbox.client.config.HttpClientConfig
 import io.searchbox.client.{JestClient, JestClientFactory}
+import org.slf4j.LoggerFactory
 import play.api.Play
 
 trait EsClientProvider {
@@ -9,10 +10,14 @@ trait EsClientProvider {
 }
 
 object EsClientProvider {
+  private val log = LoggerFactory.getLogger(classOf[EsClientProvider])
+
   def buildJestClient(url: String): JestClient = {
     val jf = new JestClientFactory()
     jf.setHttpClientConfig(new HttpClientConfig.Builder(url).multiThreaded(true).build())
-    jf.getObject
+    val client = jf.getObject
+    log.info(s"Jest client created for url: $url")
+    client
   }
 
   def buildJestClientFromPlayConfiguration(): JestClient = {
