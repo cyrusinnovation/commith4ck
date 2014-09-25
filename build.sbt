@@ -30,3 +30,7 @@ libraryDependencies ++= Seq(
   "org.elasticsearch" % "elasticsearch" % "1.3.2" % "test" classifier "tests",
   "org.apache.lucene" % "lucene-test-framework" % "4.9.0" % "test"
 )
+
+herokuIncludePaths in Compile := Seq(
+  ".jdk-overlay"
+)
