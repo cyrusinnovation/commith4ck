@@ -2,7 +2,7 @@ define(function (require) {
     "use strict";
 
     var ko = require('ko');
-    var template = require('text!./templates/table.html');
+    var template = require('text!./templates/table.html.js');
     var $ = require("jquery");
 
     return {

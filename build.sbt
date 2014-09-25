@@ -1,6 +1,6 @@
+import com.typesafe.sbt.rjs.Import.RjsKeys._
+import com.typesafe.sbt.web.Import.WebJs._
 import play.PlayImport.PlayKeys._
-import WebJs._
-import RjsKeys._
 
 name := """commith4ck"""
 
@@ -18,7 +18,7 @@ pipelineStages := Seq(rjs)
 
 requireNativePath := Some("node_modules/bin/r.js")
 
-buildProfile := JS.Object("skipDirOptimize" -> true)
+buildProfile := JS.Object("skipDirOptimize" -> true, "optimizeAllPluginResources" -> true)
 
 libraryDependencies ++= Seq(
   filters,
